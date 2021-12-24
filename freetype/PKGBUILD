@@ -1,0 +1,44 @@
+# Maintainer: cpasjuste <cpasjuste@gmail.com>
+
+pkgname=ps4-openorbis-freetype
+pkgver=2.10.1
+pkgrel=1
+pkgdesc='FreeType is a freely available software library to render fonts.'
+arch=('any')
+url='https://www.freetype.org/'
+license=(GPL2+ custom:FreeType)
+source=("http://download.savannah.gnu.org/releases/freetype/freetype-$pkgver.tar.gz")
+sha256sums=('3a60d391fd579440561bf0e7f31af2222bc610ad6ce4d9d7bd2165bca8669110')
+options=(!strip libtool staticlibs)
+depends=("ps4-openorbis-bzip2" "ps4-openorbis-libpng" "ps4-openorbis-zlib")
+groups=('ps4-openorbis-portlibs')
+makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
+
+build() {
+  cd freetype-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+
+  ./configure --prefix="${OPENORBIS}/usr" --host=x86_64 \
+    --disable-shared --enable-static \
+    --with-zlib \
+    --with-bzip2 \
+    --with-png \
+    --enable-freetype-config
+
+  make
+}
+
+package() {
+  cd freetype-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+
+  make DESTDIR="$pkgdir" install
+
+  # patch the config script to always output static libraries when not relying on pkg-config
+  sed 's/\$show_static/yes/' -i "${pkgdir}/${OPENORBIS}/usr/bin/freetype-config"
+
+  # remove useless stuff
+  rm -r "${pkgdir}/${OPENORBIS}/usr/share"
+}
