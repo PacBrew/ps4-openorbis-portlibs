@@ -1,0 +1,39 @@
+pkgname=ps4-openorbis-mbedtls
+pkgver=2.16.6
+pkgrel=1
+pkgdesc='An open source, portable, easy to use, readable and flexible SSL library'
+arch=('any')
+url='https://tls.mbed.org'
+license=('apache')
+options=(!strip libtool staticlibs)
+depends=(ps4-openorbis-zlib)
+makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
+source=("https://tls.mbed.org/download/mbedtls-${pkgver}-apache.tgz")
+groups=('ps4-openorbis-portlibs')
+sha256sums=('66455e23a6190a30142cdc1113f7418158839331a9d8e6b0778631d077281770')
+
+build() {
+  cd mbedtls-$pkgver
+
+  #./scripts/config.pl set MBEDTLS_ENTROPY_HARDWARE_ALT
+  #./scripts/config.pl set MBEDTLS_NO_PLATFORM_ENTROPY
+  #./scripts/config.pl unset MBEDTLS_SELF_TEST
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+
+  mkdir build && cd build
+
+  openorbis-cmake \
+    -DCMAKE_INSTALL_PREFIX=${OPENORBIS}/usr \
+    -DENABLE_ZLIB_SUPPORT=TRUE \
+    -DENABLE_TESTING=FALSE -DENABLE_PROGRAMS=FALSE \
+    ..
+
+  make -j16
+
+}
+
+package() {
+  cd mbedtls-$pkgver/build
+  make install DESTDIR="$pkgdir"
+}
