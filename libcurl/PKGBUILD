@@ -1,0 +1,44 @@
+# Maintainer: cpasjuste <cpasjuste@gmail.com>
+
+pkgname=ps4-openorbis-libcurl
+pkgver=7.80.0
+pkgrel=1
+pkgdesc='An URL retrieval utility and library'
+arch=('any')
+url='https://curl.haxx.se/'
+license=('curl')
+source=("https://curl.haxx.se/download/curl-${pkgver}.tar.xz")
+sha256sums=('a132bd93188b938771135ac7c1f3ac1d3ce507c1fcbef8c471397639214ae2ab')
+options=(!strip libtool staticlibs)
+depends=('ps4-openorbis-zlib')
+makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
+groups=('ps4-openorbis-portlibs')
+
+build() {
+  cd curl-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+
+  autoreconf -fi
+
+  CFLAGS="${CFLAGS} -DSOL_IP=0" LIBS="${LIBS} -lSceNet" \
+  ./configure --prefix="${OPENORBIS}/usr" --host=x86_64 \
+    --disable-shared --enable-static \
+    --with-mbedtls --disable-manual  
+
+  # TODO: fix this (use proper patch)...
+  sed -i 's|#include <osreldate.h>|//#include <osreldate.h>|g' include/curl/curl.h
+
+  make -C lib
+
+}
+
+package() {
+  cd curl-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+
+  make DESTDIR="$pkgdir" -C lib install
+  make DESTDIR="$pkgdir" -C include install
+  make DESTDIR="$pkgdir" install-binSCRIPTS
+}
