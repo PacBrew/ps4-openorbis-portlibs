@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libpng
 pkgver=1.6.37
-pkgrel=1
+pkgrel=2
 pkgdesc='PNG format graphic files library'
 arch=('any')
 url='http://www.libpng.org'

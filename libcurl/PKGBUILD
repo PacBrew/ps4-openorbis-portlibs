@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libcurl
 pkgver=7.80.0
-pkgrel=1
+pkgrel=2
 pkgdesc='An URL retrieval utility and library'
 arch=('any')
 url='https://curl.haxx.se/'
