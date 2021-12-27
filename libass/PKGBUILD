@@ -1,0 +1,33 @@
+# Maintainer: cpasjuste <cpasjuste@gmail.com>
+
+pkgname=ps4-openorbis-libass
+pkgver=0.14.0
+pkgrel=1
+pkgdesc='A portable subtitle renderer'
+arch=('any')
+url="https://github.com/libass/libass"
+license=('custom: ISC')
+options=(!strip staticlibs)
+depends=('ps4-openorbis-freetype' 'ps4-openorbis-libfribidi')
+makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
+source=("https://github.com/libass/libass/releases/download/$pkgver/libass-$pkgver.tar.xz")
+sha256sums=('881f2382af48aead75b7a0e02e65d88c5ebd369fe46bc77d9270a94aa8fd38a2')
+groups=('ps4-openorbis-portlibs')
+
+build() {
+  cd libass-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+
+  ./configure --prefix="${OPENORBIS}/usr" --host=x86_64 \
+    --disable-shared --enable-static \
+    --disable-asm --enable-large-tiles \
+    --disable-require-system-font-provider
+
+  make
+}
+
+package() {
+  cd libass-$pkgver
+  make DESTDIR="$pkgdir" install
+}
