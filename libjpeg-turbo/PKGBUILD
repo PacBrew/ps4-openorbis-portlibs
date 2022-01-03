@@ -1,0 +1,42 @@
+# Maintainer:  cpasjuste <cpasjuste@gmail.com>
+
+pkgname=ps4-openorbis-libjpeg-turbo
+pkgver=2.1.2
+pkgrel=1
+pkgdesc='libjpeg derivative with accelerated baseline JPEG compression and decompression'
+arch=('any')
+url='https://github.com/libjpeg-turbo'
+license=('IJG')
+options=(!strip libtool staticlibs)
+source=("https://github.com/libjpeg-turbo/libjpeg-turbo/archive/refs/tags/2.1.2.tar.gz")
+sha256sums=('e7fdc8a255c45bc8fbd9aa11c1a49c23092fcd7379296aeaeb14d3343a3d1bed')
+makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
+groups=('ps4-openorbis-portlibs')
+
+build() {
+
+  cd libjpeg-turbo-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+  
+  mkdir -p build && cd build
+
+  openorbis-cmake -G "Unix Makefiles" \
+    -DCMAKE_INSTALL_PREFIX=${OPENORBIS}/usr \
+    -DENABLE_SHARED=OFF \
+    ..
+
+  make
+}
+
+package() {
+  cd libjpeg-turbo-$pkgver/build
+  
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+  
+  make DESTDIR="$pkgdir" install
+  
+  # remove useless stuff
+  rm -r "$pkgdir"${OPENORBIS}/usr/share
+  rm -r "$pkgdir"${OPENORBIS}/usr/bin
+}
