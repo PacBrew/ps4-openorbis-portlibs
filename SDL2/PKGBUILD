@@ -10,7 +10,7 @@ license=("LGPL")
 options=(!strip libtool staticlibs)
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
 source=("https://github.com/PacBrew/SDL/archive/refs/heads/ps4.zip")
-sha256sums=('2ca27c22c3d858417fda1616386e0f4b892a70673098cda526e200c634338b74')
+sha256sums=('a724033c1670c05115592801e15b8b4e99a486b442c971638940c60c29ff9948')
 groups=('ps4-openorbis-portlibs' 'ps4-openorbis-sdl2')
 
 build() {
