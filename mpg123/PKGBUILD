@@ -1,0 +1,43 @@
+# Maintainer:  cpasjuste <cpasjuste@gmail.com>
+
+pkgname=ps4-openorbis-mpg123
+pkgver=1.25.10
+pkgrel=1
+pkgdesc="A real time MPEG audio decoder for layer 1, 2 and 3"
+arch=('any')
+url="http://sourceforge.net/projects/mpg123"
+license=('LGPL2.1')
+options=(!strip libtool staticlibs)
+source=("http://downloads.sourceforge.net/sourceforge/mpg123/mpg123-${pkgver}.tar.bz2")
+sha256sums=('6c1337aee2e4bf993299851c70b7db11faec785303cfca3a5c3eb5f329ba7023')
+makedepends=('ps4-openorbis-vars' 'ps4-openorbis-pkg-config')
+groups=('ps4-openorbis-portlibs')
+
+build() {
+  cd mpg123-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+
+  autoreconf -fi
+
+  ./configure --prefix="${OPENORBIS}/usr" --host=x86_64 \
+    --disable-shared --enable-static --enable-fifo=no \
+    --enable-ipv6=no --enable-network=no --enable-int-quality=no \
+    --with-default-audio=dummy
+
+  # TODO: fix this (use proper patch)...
+  sed -i 's|#define HAVE_TERMIOS 1|//#define HAVE_TERMIOS 1|g' src/config.h
+
+  make
+}
+
+package() {
+  cd mpg123-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+  
+  make DESTDIR="$pkgdir" install
+
+  # remove useless stuff
+  rm -rf "$pkgdir"${OPENORBIS}/usr/bin "$pkgdir"${OPENORBIS}/usr/share
+}
