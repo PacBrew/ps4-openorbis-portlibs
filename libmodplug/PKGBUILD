@@ -1,0 +1,30 @@
+# Maintainer:  cpasjuste <cpasjuste@gmail.com>
+
+pkgname=ps4-openorbis-libmodplug
+pkgver=0.8.9.0
+pkgrel=1
+pkgdesc='Play various .mod formats'
+arch=('any')
+url='http://modplug-xmms.sourceforge.net/'
+license=(public domain)
+options=(!strip libtool staticlibs)
+source=("https://sourceforge.net/projects/modplug-xmms/files/libmodplug/$pkgver/libmodplug-$pkgver.tar.gz")
+sha256sums=('457ca5a6c179656d66c01505c0d95fafaead4329b9dbaa0f997d00a3508ad9de')
+depends=("ps4-openorbis-zlib")
+groups=('ps4-openorbis-portlibs')
+
+build() {
+  cd libmodplug-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+
+  ./configure --prefix="${OPENORBIS}/usr" --host=x86_64 \
+    --disable-shared --enable-static
+
+  make
+}
+
+package() {
+  cd libmodplug-$pkgver
+  make DESTDIR="$pkgdir" install
+}
