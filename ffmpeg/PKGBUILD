@@ -1,0 +1,54 @@
+# Maintainer: cpasjuste <cpasjuste@gmail.com>
+
+pkgname=ps4-openorbis-ffmpeg
+pkgver=4.3.1
+pkgrel=1
+pkgdesc='ffmpeg port'
+arch=('any')
+url='https://ffmpeg.org/'
+license=('LGPL' 'GPL')
+options=(!strip staticlibs)
+makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
+depends=('ps4-openorbis-zlib' 'ps4-openorbis-bzip2' 'ps4-openorbis-libass' 'ps4-openorbis-libfribidi' 'ps4-openorbis-freetype')
+source=("https://ffmpeg.org/releases/ffmpeg-$pkgver.tar.xz")
+sha256sums=('ad009240d46e307b4e03a213a0f49c11b650e445b1f8be0dda2a9212b34d2ffb')
+groups=('ps4-openorbis-portlibs')
+
+build() {
+  cd ffmpeg-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+  
+  # TODO: fix this
+  sed -i s'|check_cflags -Wmissing-prototypes||'g configure
+  sed -i s'|check_cflags -Werror=missing-prototypes||'g configure
+  sed -i -e '$aint __clock_gettime (clockid_t c, struct timespec * t) { return clock_gettime(c, t); }' libavutil/time.c
+
+  ./configure --prefix="${OPENORBIS}/usr" \
+    --enable-cross-compile --cross-prefix=${OPENORBIS}/bin/ \
+    --arch=x86_64 --target-os=freebsd \
+    --disable-shared --enable-static \
+    --pkg-config=openorbis-pkg-config \
+    --disable-runtime-cpudetect --disable-programs --disable-debug --disable-doc --disable-autodetect \
+    --disable-avdevice --disable-hwaccels --disable-encoders --disable-muxers \
+    --enable-swscale --enable-swresample --enable-network  \
+    --disable-protocols --enable-protocol=file,http,ftp,tcp,udp,rtmp \
+    --enable-zlib --enable-bzlib --enable-libass --enable-libfreetype --enable-libfribidi \
+    --cc=$CC --cxx=$CXX --nm=$NM --strip=$STRIP --ar=$AR --ranlib=$RANLIB
+
+  # TODO: fix this
+  sed -i s'|#define HAVE_SYSCTL 1|//#define HAVE_SYSCTL 1|'g config.h
+
+  make --quiet -j $(getconf _NPROCESSORS_ONLN)
+}
+
+package() {
+  cd ffmpeg-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+
+  make DESTDIR="$pkgdir" install
+
+  # remove examples
+  rm -r "$pkgdir"${OPENORBIS}/usr/share
+}
