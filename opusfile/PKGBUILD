@@ -1,0 +1,36 @@
+# Maintainer:  cpasjuste <cpasjuste@gmail.com>
+
+pkgname=ps4-openorbis-opusfile
+pkgver=0.11
+pkgrel=1
+pkgdesc='Library for opening, seeking, and decoding .opus files'
+arch=('any')
+url='https://opus-codec.org/'
+license=(BSD)
+options=(!strip libtool staticlibs)
+source=("https://downloads.xiph.org/releases/opus/opusfile-$pkgver.tar.gz")
+sha256sums=('74ce9b6cf4da103133e7b5c95df810ceb7195471e1162ed57af415fabf5603bf')
+makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
+depends=('ps4-openorbis-libogg' 'ps4-openorbis-libopus')
+groups=('ps4-openorbis-portlibs')
+
+build() {
+  cd opusfile-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+
+  ./configure --prefix="${OPENORBIS}/usr" --host=x86_64 \
+    --disable-shared --enable-static \
+    --disable-http --disable-examples --disable-doc
+
+  make
+}
+
+package() {
+  cd opusfile-$pkgver
+  make DESTDIR="$pkgdir" install
+  
+  # remove useless stuff
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+  rm -r "$pkgdir"${OPENORBIS}/usr/share
+}
