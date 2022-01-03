@@ -27,4 +27,8 @@ build() {
 package() {
   cd libmodplug-$pkgver
   make DESTDIR="$pkgdir" install
+
+  # fix stdc++
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+  sed 's|stdc++|c++|' -i "${pkgdir}/${OPENORBIS}/usr/lib/pkgconfig/libmodplug.pc"
 }
