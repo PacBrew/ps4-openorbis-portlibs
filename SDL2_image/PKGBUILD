@@ -1,0 +1,45 @@
+# Maintainer:  cpasjuste <cpasjuste@gmail.com>
+
+pkgname=ps4-openorbis-sdl2_image
+pkgver=2.0.5
+pkgrel=1
+pkgdesc="SDL2 image loading library."
+arch=('any')
+url="https://libsdl.org/projects/SDL_image/"
+license=("zlib")
+options=(!strip libtool staticlibs)
+makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
+depends=(
+  'ps4-openorbis-sdl2'
+  'ps4-openorbis-libpng'
+  'ps4-openorbis-libjpeg-turbo'
+  'ps4-openorbis-libwebp'
+)
+source=("${url}release/SDL2_image-${pkgver}.tar.gz")
+sha256sums=('bdd5f6e026682f7d7e1be0b6051b209da2f402a2dd8bd1c4bd9c25ad263108d0')
+groups=('ps4-openorbis-portlibs' 'ps4-openorbis-sdl2-libs')
+
+build() {
+  cd SDL2_image-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+
+  ./configure --prefix="${OPENORBIS}/usr" --host=x86_64 \
+    --disable-shared --enable-static \
+    --disable-sdltest \
+    --with-sdl-prefix=${OPENORBIS}/usr \
+    --disable-jpg-shared --disable-png-shared --disable-webp-shared
+
+  make
+}
+
+package() {
+  cd SDL2_image-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+
+  make DESTDIR="$pkgdir" install
+
+  # add our static libs
+  echo "Requires.private: libpng libjpeg libwebp" >> "${pkgdir}/${OPENORBIS}/usr/lib/pkgconfig/SDL2_image.pc"
+}
