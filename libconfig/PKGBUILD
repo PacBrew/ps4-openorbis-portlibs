@@ -1,0 +1,39 @@
+# Maintainer:  cpasjuste <cpasjuste@gmail.com>
+
+pkgname=ps4-openorbis-libconfig
+pkgver=1.7.3
+pkgrel=1
+pkgdesc='C/C++ Configuration File Library'
+arch=('any')
+url="https://www.hyperrealm.com/libconfig/libconfig.html"
+license=('LGPL')
+options=(!strip libtool staticlibs)
+source=("https://github.com/hyperrealm/libconfig/releases/download/v$pkgver/libconfig-$pkgver.tar.gz" "libconfig.patch")
+makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
+sha256sums=(
+  '545166d6cac037744381d1e9cc5a5405094e7bfad16a411699bcff40bbb31ee7'
+  '1951a74d027d6f7e5295b9fb98f49322b38f77da3029611daa96864b40ad72af'
+)
+groups=('ps4-openorbis-portlibs')
+
+build() {
+  cd libconfig-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+
+  ./configure --prefix="${OPENORBIS}/usr" --host=x86_64 \
+    --disable-shared --enable-static \
+    --disable-examples
+
+  make
+}
+
+package() {
+  cd libconfig-$pkgver
+
+  make DESTDIR="$pkgdir" install
+  
+  # remove useless stuff
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+  rm -r "$pkgdir"${OPENORBIS}/usr/share
+}
