@@ -8,12 +8,9 @@ arch=('any')
 url="https://www.hyperrealm.com/libconfig/libconfig.html"
 license=('LGPL')
 options=(!strip libtool staticlibs)
-source=("https://github.com/hyperrealm/libconfig/releases/download/v$pkgver/libconfig-$pkgver.tar.gz" "libconfig.patch")
+source=("https://github.com/hyperrealm/libconfig/releases/download/v$pkgver/libconfig-$pkgver.tar.gz")
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
-sha256sums=(
-  '545166d6cac037744381d1e9cc5a5405094e7bfad16a411699bcff40bbb31ee7'
-  '1951a74d027d6f7e5295b9fb98f49322b38f77da3029611daa96864b40ad72af'
-)
+sha256sums=('545166d6cac037744381d1e9cc5a5405094e7bfad16a411699bcff40bbb31ee7')
 groups=('ps4-openorbis-portlibs')
 
 build() {
