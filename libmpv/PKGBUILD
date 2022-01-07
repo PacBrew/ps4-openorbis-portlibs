@@ -1,0 +1,45 @@
+# Maintainer:  cpasjuste <cpasjuste@gmail.com>
+
+pkgbasename=libmpv
+pkgname=ps4-openorbis-${pkgbasename}
+pkgver=0.34.1
+pkgrel=1
+pkgdesc='Command line video player (library only)'
+arch=('any')
+url='https://mpv.io/'
+license=('GPL')
+options=(!strip libtool staticlibs)
+source=("${pkgbasename}-${pkgver}.tar.gz::https://github.com/mpv-player/mpv/archive/v${pkgver}.tar.gz" "mpv.patch")
+sha256sums=(
+  '32ded8c13b6398310fa27767378193dc1db6d78b006b70dbcbd3123a1445e746'
+  '6640b28ecd9f77a66f15046d462ddddf3fd1b4f4134d2b709418530cb6fb72cf'
+)
+makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
+depends=('ps4-openorbis-sdl2' 'ps4-openorbis-ffmpeg')
+groups=('ps4-openorbis-portlibs')
+
+prepare() {
+  cd mpv-$pkgver
+  patch -Np1 -i "$srcdir/mpv.patch"
+}
+
+build() {
+  cd mpv-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+
+  ./bootstrap.py
+
+  TARGET=x86_64 ./waf configure --prefix="${OPENORBIS}/usr" \
+    --disable-libmpv-shared --enable-libmpv-static --disable-cplayer \
+    --disable-iconv --disable-jpeg --disable-libavdevice \
+    --enable-sdl2 --enable-sdl2-audio --enable-sdl2-gamepad --enable-sdl2-video
+
+  ./waf build
+}
+
+package() {
+  cd mpv-$pkgver
+  ./waf install --destdir=$pkgdir
+}
+

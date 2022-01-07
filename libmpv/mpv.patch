@@ -1,0 +1,25 @@
+diff '--exclude=*waf*' '--exclude=__pycache__' '--exclude=build' '--exclude=wscript_build.py.orig' -NBaur mpv-0.34.1/wscript_build.py mpv-0.34.1-ps4/wscript_build.py
+--- mpv-0.34.1/wscript_build.py	2020-11-22 18:46:28.000000000 +0100
++++ mpv-0.34.1-ps4/wscript_build.py	2021-01-21 11:17:47.714178820 +0100
+@@ -191,7 +191,6 @@
+         ])
+ 
+     getch2_c = ctx.pick_first_matching_dep([
+-        ( "osdep/terminal-unix.c",               "posix" ),
+         ( "osdep/terminal-win.c",                "win32-desktop" ),
+         ( "osdep/terminal-dummy.c" ),
+     ])
+@@ -203,13 +202,11 @@
+     ])
+ 
+     ipc_c = ctx.pick_first_matching_dep([
+-        ( "input/ipc-unix.c",                    "posix" ),
+         ( "input/ipc-win.c",                     "win32-desktop" ),
+         ( "input/ipc-dummy.c" ),
+     ])
+ 
+     subprocess_c = ctx.pick_first_matching_dep([
+-        ( "osdep/subprocess-posix.c",            "posix" ),
+         ( "osdep/subprocess-win.c",              "win32-desktop" ),
+         ( "osdep/subprocess-dummy.c" ),
+     ])
