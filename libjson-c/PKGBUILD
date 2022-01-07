@@ -1,0 +1,37 @@
+# Maintainer:  cpasjuste <cpasjuste@gmail.com>
+
+pkgname=ps4-openorbis-libjson-c
+pkgver=0.15
+pkgrel=1
+pkgdesc='A JSON implementation in C.'
+arch=('any')
+url='https://github.com/json-c/json-c/'
+license=('MIT')
+options=(!strip libtool staticlibs)
+source=("https://s3.amazonaws.com/json-c_releases/releases/json-c-${pkgver}.tar.gz")
+sha256sums=('b8d80a1ddb718b3ba7492916237bbf86609e9709fb007e7f7d4322f02341a4c6')
+makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
+groups=('ps4-openorbis-portlibs')
+
+build() {
+  cd json-c-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+
+  mkdir -p build && cd build
+
+  openorbis-cmake -G "Unix Makefiles" \
+    -DCMAKE_INSTALL_PREFIX=${OPENORBIS}/usr \
+    -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF \
+    -DCMAKE_BUILD_TYPE=Release \
+    ..
+
+  sed -i -e '$a#define HAVE_SNPRINTF' config.h
+
+  make
+}
+
+package() {
+  cd json-c-$pkgver/build
+  make DESTDIR="$pkgdir" install
+}
