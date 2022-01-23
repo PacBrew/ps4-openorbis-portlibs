@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libmpq
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc=''libmpq' is a library which can be easily used in own applications to extract, create or manipulate MoPaQ mpq archives.'
 arch=('any')
 url='https://github.com/diasurgical/libmpq'
@@ -36,5 +36,4 @@ package() {
   # remove useless stuff
   source /opt/pacbrew/ps4/openorbis/ps4vars.sh
   rm -r "${pkgdir}/usr"
-  rm -r "${pkgdir}/${OPENORBIS}/usr/share"
 }
