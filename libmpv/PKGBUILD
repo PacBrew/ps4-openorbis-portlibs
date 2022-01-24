@@ -3,7 +3,7 @@
 pkgbasename=libmpv
 pkgname=ps4-openorbis-${pkgbasename}
 pkgver=0.34.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Command line video player (library only)'
 arch=('any')
 url='https://mpv.io/'
@@ -30,13 +30,11 @@ build() {
 
   ./bootstrap.py
 
-  export CFLAGS="$CFLAGS -D_POSIX_VERSION=200809L"
   TARGET=x86_64 ./waf configure --prefix="${OPENORBIS}/usr" \
     --disable-libmpv-shared --enable-libmpv-static --disable-cplayer \
     --disable-iconv --disable-jpeg --disable-libavdevice \
     --enable-sdl2 --enable-sdl2-audio --enable-sdl2-gamepad --enable-sdl2-video
 
-  sed -i 's/#define HAVE_POSIX 1/#define HAVE_POSIX 0/' build/config.h
   # enable ps4 logging
   sed  -i '1i #include <orbis/libkernel.h>' common/msg.c
   sed -i 's/print_terminal_line(log, lev, text, "");/sceKernelDebugOutText(0, text); print_terminal_line(log, lev, text, "");/' common/msg.c

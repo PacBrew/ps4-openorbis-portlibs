@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-ffmpeg
 pkgver=4.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc='ffmpeg port'
 arch=('any')
 url='https://ffmpeg.org/'
