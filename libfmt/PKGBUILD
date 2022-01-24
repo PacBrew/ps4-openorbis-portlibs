@@ -1,0 +1,37 @@
+# Maintainer:  cpasjuste <cpasjuste@gmail.com>
+
+pkgname=ps4-openorbis-libfmt
+pkgver=8.1.1
+pkgrel=1
+pkgdesc='A modern formatting library.'
+arch=('any')
+url='https://fmt.dev'
+license=('MIT')
+options=(!strip libtool staticlibs)
+
+source=("https://github.com/fmtlib/fmt/releases/download/${pkgver}/fmt-${pkgver}.zip")
+sha256sums=('23778bad8edba12d76e4075da06db591f3b0e3c6c04928ced4a7282ca3400e5d')
+makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
+groups=('ps4-openorbis-portlibs')
+
+build() {
+  cd fmt-$pkgver
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+
+  mkdir -p build && cd build
+
+  openorbis-cmake -G "Unix Makefiles" \
+    -DCMAKE_INSTALL_PREFIX=${OPENORBIS}/usr \
+    -DCMAKE_BUILD_TYPE=Release -DFMT_TEST=OFF \
+    ..
+
+  make
+}
+
+package() {
+  cd fmt-$pkgver/build
+  make DESTDIR="$pkgdir" install
+}
+
+
