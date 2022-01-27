@@ -1,8 +1,8 @@
 # Maintainer: cpasjuste <cpasjuste@gmail.com>
 
 pkgname=ps4-openorbis-ffmpeg
-pkgver=4.3.1
-pkgrel=2
+pkgver=5.0
+pkgrel=3
 pkgdesc='ffmpeg port'
 arch=('any')
 url='https://ffmpeg.org/'
@@ -11,18 +11,13 @@ options=(!strip staticlibs)
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
 depends=('ps4-openorbis-zlib' 'ps4-openorbis-bzip2' 'ps4-openorbis-libass' 'ps4-openorbis-libfribidi' 'ps4-openorbis-freetype')
 source=("https://ffmpeg.org/releases/ffmpeg-$pkgver.tar.xz")
-sha256sums=('ad009240d46e307b4e03a213a0f49c11b650e445b1f8be0dda2a9212b34d2ffb')
+sha256sums=('51e919f7d205062c0fd4fae6243a84850391115104ccf1efc451733bc0ac7298')
 groups=('ps4-openorbis-portlibs')
 
 build() {
   cd ffmpeg-$pkgver
 
   source /opt/pacbrew/ps4/openorbis/ps4vars.sh
-  
-  # TODO: fix this
-  sed -i s'|check_cflags -Wmissing-prototypes||'g configure
-  sed -i s'|check_cflags -Werror=missing-prototypes||'g configure
-  sed -i -e '$aint __clock_gettime (clockid_t c, struct timespec * t) { return clock_gettime(c, t); }' libavutil/time.c
 
   ./configure --prefix="${OPENORBIS}/usr" \
     --enable-cross-compile --cross-prefix=${OPENORBIS}/bin/ \
