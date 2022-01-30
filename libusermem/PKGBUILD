@@ -1,0 +1,35 @@
+# Maintainer:  cpasjuste <cpasjuste@gmail.com>
+
+pkgname=ps4-openorbis-libusermem
+pkgver=1.0
+pkgrel=1
+pkgdesc="malloc wrapper for gde apps"
+arch=('any')
+url="https://github.com/PacBrew/ps4-openorbis-utils"
+license=("none")
+options=(!strip libtool staticlibs)
+makedepends=('ps4-openorbis-vars')
+source=("https://github.com/PacBrew/ps4-openorbis-utils/archive/5243a2e1b67f8db226b1cc3edda84ab99cdd14c6.zip")
+sha256sums=('072f71181c9bc57f5ea48c6d43ae744b18a945308eb9a6ecc87119f68aa5cdc4')
+groups=('ps4-openorbis-portlibs' 'ps4-openorbis-sdl2')
+
+build() {
+  cd ps4-openorbis-utils-5243a2e1b67f8db226b1cc3edda84ab99cdd14c6
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+
+  mkdir -p build && cd build
+
+  openorbis-cmake -G "Unix Makefiles" \
+    -DCMAKE_INSTALL_PREFIX=${OPENORBIS}/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    ..
+
+  make
+}
+
+package() {
+  cd $srcdir/ps4-openorbis-utils-5243a2e1b67f8db226b1cc3edda84ab99cdd14c6/build
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+  install -Dm 644 libusermem.a -t "${pkgdir}/${OPENORBIS}/usr/lib"
+}
