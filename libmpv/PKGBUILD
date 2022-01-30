@@ -3,7 +3,7 @@
 pkgbasename=libmpv
 pkgname=ps4-openorbis-${pkgbasename}
 pkgver=0.34.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Command line video player (library only)'
 arch=('any')
 url='https://mpv.io/'
@@ -37,7 +37,7 @@ build() {
 
   # enable ps4 logging
   sed  -i '1i #include <orbis/libkernel.h>' common/msg.c
-  sed -i 's/print_terminal_line(log, lev, text, "");/sceKernelDebugOutText(0, text); print_terminal_line(log, lev, text, "");/' common/msg.c
+  sed -i 's/print_terminal_line(log, lev, text, "");/sceKernelDebugOutText(0, text);/' common/msg.c
 
   ./waf build
 }

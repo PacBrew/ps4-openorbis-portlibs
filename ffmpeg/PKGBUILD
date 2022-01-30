@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-ffmpeg
 pkgver=5.0
-pkgrel=3
+pkgrel=4
 pkgdesc='ffmpeg port'
 arch=('any')
 url='https://ffmpeg.org/'
@@ -24,7 +24,7 @@ build() {
     --arch=x86_64 --target-os=freebsd \
     --disable-shared --enable-static \
     --pkg-config=openorbis-pkg-config \
-    --disable-runtime-cpudetect --disable-programs --disable-debug --disable-doc --disable-autodetect \
+    --disable-programs --disable-debug --disable-doc \
     --disable-avdevice --disable-hwaccels --disable-encoders --disable-muxers \
     --enable-swscale --enable-swresample --enable-network  \
     --disable-protocols --enable-protocol=file,http,ftp,tcp,udp,rtmp \
