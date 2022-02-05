@@ -25,14 +25,21 @@ diff '--exclude=*waf*' '--exclude=__pycache__' '--exclude=build' -NBaur mpv-0.34
          } else if (text[0]) {
              int size = strlen(text) + 1;
              if (talloc_get_size(log->partial) < size)
-diff '--exclude=*waf*' '--exclude=__pycache__' '--exclude=build' -NBaur mpv-0.34.1/video/out/opengl/ra_gl.c mpv-0.34.1-ps4/video/out/opengl/ra_gl.c
 --- mpv-0.34.1/video/out/opengl/ra_gl.c	2022-01-03 20:45:08.000000000 +0100
-+++ mpv-0.34.1-ps4/video/out/opengl/ra_gl.c	2022-01-30 21:29:04.612697139 +0100
-@@ -6,6 +6,350 @@
++++ mpv-0.34.1-ps4/video/out/opengl/ra_gl.c	2022-02-05 21:28:50.437460473 +0100
+@@ -6,6 +6,358 @@
  
  static struct ra_fns ra_fns_gl;
  
 +#ifdef __PS4__
++
++#include <orbis/Pigletv2VSH.h>
++
++void glPigletGetShaderBinarySCE(
++    GLuint program, GLsizei bufSize, GLsizei *length, GLenum *binaryFormat, void *binary);
++
++int ps4_mpv_use_precompiled_shader = 0;
++
 +const char ps4_mpv_v[1295] = {
 +	0x71, 0xbc, 0x91, 0xe8, 0x64, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 
 +	0x00, 0x87, 0x02, 0x00, 0x00, 0x23, 0x76, 0x65, 0x72, 0x73, 0x69, 
@@ -379,29 +386,22 @@ diff '--exclude=*waf*' '--exclude=__pycache__' '--exclude=build' -NBaur mpv-0.34
  // For ra.priv
  struct ra_gl {
      GL *gl;
-@@ -733,19 +1077,35 @@
-     }
- }
- 
-+#include <orbis/Pigletv2VSH.h>
-+
-+extern void glPigletGetShaderBinarySCE(
-+        GLuint program, GLsizei bufSize, GLsizei *length,
-+        GLenum *binaryFormat, void *binary);
-+
- static void compile_attach_shader(struct ra *ra, GLuint program,
-                                   GLenum type, const char *source, bool *ok)
- {
+@@ -739,13 +1091,28 @@
      GL *gl = ra_gl_get(ra);
  
      GLuint shader = gl->CreateShader(type);
 +#ifdef __PS4__
-+    if(type == 35633) {
-+        // vertex
-+        glShaderBinary(1, &shader, 0, (const void *) ps4_mpv_v, ps4_mpv_v_size);
++    // TODO: handle subtitles shader
++    if(ps4_mpv_use_precompiled_shader) {
++        if(type == 35633) {
++            // vertex
++            glShaderBinary(1, &shader, 0, (const void *) ps4_mpv_v, ps4_mpv_v_size);
++        } else {
++            // fragment
++            glShaderBinary(1, &shader, 0, (const void *) ps4_mpv_f, ps4_mpv_f_size);
++        }
 +    } else {
-+        // fragment
-+        glShaderBinary(1, &shader, 0, (const void *) ps4_mpv_f, ps4_mpv_f_size);
++        gl->ShaderSource(shader, 1, &source, NULL);
 +    }
 +#else
      gl->ShaderSource(shader, 1, &source, NULL);

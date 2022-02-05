@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libmpv
 pkgver=0.34.1
-pkgrel=5
+pkgrel=3
 pkgdesc='Command line video player (library only)'
 arch=('any')
 url='https://mpv.io/'
@@ -11,7 +11,7 @@ options=(!strip libtool staticlibs)
 source=("libmpv-${pkgver}.tar.gz::https://github.com/mpv-player/mpv/archive/v${pkgver}.tar.gz" "mpv.patch")
 sha256sums=(
   '32ded8c13b6398310fa27767378193dc1db6d78b006b70dbcbd3123a1445e746'
-  '015a89cb23eaebd786765029013ae44cd8c6892c1433ac2d402cb0cb2203b323'
+  'af8a1ac95bab7eac0c2b633060ade2d69e71ebad94dad4fa4102e24a42532ccb'
 )
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
 depends=('ps4-openorbis-sdl2' 'ps4-openorbis-ffmpeg')
