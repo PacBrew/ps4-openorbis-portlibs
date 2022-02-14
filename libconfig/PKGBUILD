@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libconfig
 pkgver=1.7.3
-pkgrel=1
+pkgrel=2
 pkgdesc='C/C++ Configuration File Library'
 arch=('any')
 url="https://www.hyperrealm.com/libconfig/libconfig.html"
