@@ -2,9 +2,9 @@
 
 pkgname=ps4-openorbis-sdl2
 pkgver=2.0.18
-pkgrel=13
+pkgrel=14
 pkgdesc="A library for portable low-level access to video, audio, joysticks..."
-gitcommit=35432db80c6e64991c779b1f31f9d470e16b125f
+gitcommit=a26fbd786edcb50750cdceb8987752bb05e65992
 arch=('any')
 url="https://libsdl.org"
 license=("LGPL")
@@ -12,7 +12,7 @@ options=(!strip libtool staticlibs)
 depends=('ps4-openorbis-libsamplerate')
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
 source=("https://github.com/PacBrew/SDL/archive/$gitcommit.zip")
-sha256sums=('bf6c3ca82f96bb21a4d125db00620e9fb55b3acccd53faeb081afca6b754e529')
+sha256sums=('ef494b2bb0d22762af382b27213c9d75c42dc9b2741c073adf2cda626f82ade6')
 groups=('ps4-openorbis-portlibs' 'ps4-openorbis-sdl2')
 
 build() {
