@@ -1,8 +1,8 @@
-# Maintainer:  Dave Murphy <davem@devkitpro.org>
+# Maintainer: cpasjuste <cpasjuste@gmail.com>
 
 pkgname=ps4-openorbis-libarchive
 pkgver=3.3.2
-pkgrel=1
+pkgrel=2
 pkgdesc='library that can create and read several streaming archive format'
 arch=('any')
 url="https://www.libarchive.org"
@@ -33,7 +33,7 @@ build() {
     --disable-bsdtar --disable-bsdcat \
     --disable-bsdcpio --disable-acl --without-xml2
 
-  make
+  make -j1
 }
 
 package() {
