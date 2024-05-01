@@ -1,7 +1,7 @@
 # Maintainer: cpasjuste <cpasjuste@gmail.com>
 
 pkgname=ps4-openorbis-zlib
-pkgver=1.2.12
+pkgver=1.3.1
 pkgrel=1
 pkgdesc='Deflate compression method library'
 arch=('any')
@@ -9,7 +9,7 @@ url='http://www.zlib.net/'
 license=('zlib')
 options=(!strip libtool staticlibs)
 source=("https://zlib.net/zlib-$pkgver.tar.gz")
-sha256sums=('91844808532e5ce316b3c010929493c0244f3d37593afd6de04f71821d5136d9')
+sha256sums=('9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23')
 makedepends=('ps4-openorbis-vars')
 groups=('ps4-openorbis-portlibs')
 
