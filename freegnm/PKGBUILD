@@ -1,0 +1,48 @@
+# Maintainer: cpasjuste <cpasjuste@gmail.com>
+
+pkgname=ps4-openorbis-freegnm
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="freegnm is a library providing GPU accelerated graphics and compute in PlayStation 4's GNM, along with functionality to manage its resources"
+arch=('any')
+url='https://gitgud.io/gluesniffer/freegnm'
+license=('zlib')
+commit=('b4211e3de0c0590924d402592c04bf47ec96b558')
+source=(
+  "$url/-/archive/$commit/freegnm-$commit.tar.gz"
+  "001-openorbis.patch"
+)
+sha256sums=(
+  'a28b4f93f7798006b2567123fd2e750a50339d791e6a51e6a54c930070291a49'
+  'bdca74cdbdb24d46ea6e783d01377893c91dd69b328ea2b4f50b5923f6ac2569'
+)
+options=(!strip !debug libtool staticlibs)
+makedepends=('ps4-openorbis-vars')
+groups=('ps4-openorbis-portlibs')
+
+prepare() {
+  cd freegnm-$commit
+  patch -Np1 -i "../001-openorbis.patch"
+}
+
+build() {
+  cd freegnm-$commit
+
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+  
+  cp config.orbis.mak config.mak
+  make libgnm.a
+}
+
+package() {
+  cd freegnm-$commit
+ 
+  source /opt/pacbrew/ps4/openorbis/ps4vars.sh
+  
+  install -d "${pkgdir}/${OPENORBIS}"/usr/lib
+  install -m755 libgnm.a "${pkgdir}/${OPENORBIS}"/usr/lib
+
+  install -d "${pkgdir}/${OPENORBIS}"/usr/include
+  cp -r gnm "${pkgdir}/${OPENORBIS}"/usr/include
+}
+

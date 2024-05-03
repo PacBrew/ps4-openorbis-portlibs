@@ -1,0 +1,36 @@
+diff --git a/src/driver_orbis.c b/src/driver_orbis.c
+index a5353f4..3518167 100644
+--- a/src/driver_orbis.c
++++ b/src/driver_orbis.c
+@@ -1,6 +1,15 @@
+ #include "gnm/driver.h"
+ 
++#define sceGnmDrawIndexIndirect sceGnmDrawIndexIndirect_
++#define sceGnmInsertWaitFlipDone sceGnmInsertWaitFlipDone_
+ #include <orbis/GnmDriver.h>
++#undef sceGnmDrawIndexIndirect
++#undef sceGnmInsertWaitFlipDone
++
++int32_t sceGnmDrawIndexIndirect(uint32_t* cmd, uint32_t numdwords, uint32_t dataoffset, uint32_t stage,
++    uint8_t vertexoffusgpr, uint8_t instanceoffusgpr, OrbisGnmDrawFlags flags);
++
++int32_t sceGnmInsertWaitFlipDone(uint32_t* cmd, uint32_t numdwords, int32_t videohandle, uint32_t displaybufidx);
+ 
+ int32_t gnmDriverDrawInitDefaultHardwareState350(
+     uint32_t* cmd, uint32_t numdwords
+diff --git a/src/platform_orbis.c b/src/platform_orbis.c
+index c64631b..5059d73 100644
+--- a/src/platform_orbis.c
++++ b/src/platform_orbis.c
+@@ -1,6 +1,11 @@
+ #include "gnm/platform.h"
+ 
++#define sceVideoOutGetBufferLabelAddress sceVideoOutGetBufferLabelAddress_
+ #include <orbis/VideoOut.h>
++#undef sceVideoOutGetBufferLabelAddress
++
++int32_t sceVideoOutGetBufferLabelAddress(int32_t videohandle, void** outaddr);
++
+ #include <orbis/libkernel.h>
+ 
+ GnmGpuMode gnmGpuMode(void) {
