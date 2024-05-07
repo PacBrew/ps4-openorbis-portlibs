@@ -7,7 +7,7 @@ pkgdesc='library that can create and read several streaming archive format'
 arch=('any')
 url="https://www.libarchive.org"
 license=('Simplified BSD')
-options=(!strip libtool staticlibs)
+options=(!strip !debug libtool staticlibs)
 source=(
  "http://www.libarchive.org/downloads/libarchive-${pkgver}.tar.gz"
  "libarchive-3.3.2.patch"

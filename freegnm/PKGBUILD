@@ -16,7 +16,7 @@ sha256sums=(
   'a28b4f93f7798006b2567123fd2e750a50339d791e6a51e6a54c930070291a49'
   'bdca74cdbdb24d46ea6e783d01377893c91dd69b328ea2b4f50b5923f6ac2569'
 )
-options=(!strip !debug libtool staticlibs)
+options=(!strip !debug !debug libtool staticlibs)
 makedepends=('ps4-openorbis-vars')
 groups=(
   'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'

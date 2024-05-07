@@ -7,7 +7,7 @@ pkgdesc='Secret Rabbit Code (aka libsamplerate) is a Sample Rate Converter for a
 arch=('any')
 url="http://www.mega-nerd.com/libsamplerate"
 license=('BSD')
-options=(!strip libtool staticlibs)
+options=(!strip !debug libtool staticlibs)
 source=(
   "http://www.mega-nerd.com/libsamplerate/libsamplerate-${pkgver}.tar.gz"
 )

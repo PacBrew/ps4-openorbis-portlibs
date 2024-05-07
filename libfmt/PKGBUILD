@@ -7,7 +7,7 @@ pkgdesc='A modern formatting library.'
 arch=('any')
 url='https://fmt.dev'
 license=('MIT')
-options=(!strip libtool staticlibs)
+options=(!strip !debug libtool staticlibs)
 
 source=("https://github.com/fmtlib/fmt/releases/download/${pkgver}/fmt-${pkgver}.zip")
 sha256sums=('23778bad8edba12d76e4075da06db591f3b0e3c6c04928ced4a7282ca3400e5d')

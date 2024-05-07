@@ -7,7 +7,7 @@ pkgdesc="SDL2 image loading library."
 arch=('any')
 url="https://libsdl.org/projects/SDL_image/"
 license=("zlib")
-options=(!strip libtool staticlibs)
+options=(!strip !debug libtool staticlibs)
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
 depends=(
   'ps4-openorbis-sdl2'
