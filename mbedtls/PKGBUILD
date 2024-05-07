@@ -10,7 +10,7 @@ license=('apache')
 options=(!strip !debug libtool staticlibs)
 depends=(ps4-openorbis-zlib)
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
-source=("https://tls.mbed.org/download/mbedtls-${pkgver}-apache.tgz")
+source=("https://sources.buildroot.net/mbedtls/mbedtls-${pkgver}-apache.tgz")
 groups=(
   'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
   'ps4-openorbis-portlibs' # for backward compatibility
