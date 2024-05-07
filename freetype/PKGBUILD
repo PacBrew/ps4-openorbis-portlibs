@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-freetype
 pkgver=2.10.1
-pkgrel=2
+pkgrel=3
 pkgdesc='FreeType is a freely available software library to render fonts.'
 arch=('any')
 url='https://www.freetype.org/'
@@ -11,8 +11,11 @@ source=("http://download.savannah.gnu.org/releases/freetype/freetype-$pkgver.tar
 sha256sums=('3a60d391fd579440561bf0e7f31af2222bc610ad6ce4d9d7bd2165bca8669110')
 options=(!strip libtool staticlibs)
 depends=("ps4-openorbis-bzip2" "ps4-openorbis-libpng" "ps4-openorbis-zlib")
-groups=('ps4-openorbis-portlibs')
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
   cd freetype-$pkgver

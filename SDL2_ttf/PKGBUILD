@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-sdl2_ttf
 pkgver=2.0.15
-pkgrel=1
+pkgrel=2
 pkgdesc="SDL2 TrueType font library."
 arch=('any')
 url="https://libsdl.org/projects/SDL_ttf/"
@@ -15,7 +15,10 @@ depends=(
 )
 source=("${url}release/SDL2_ttf-${pkgver}.tar.gz")
 sha256sums=('a9eceb1ad88c1f1545cd7bd28e7cbc0b2c14191d40238f531a15b01b1b22cd33')
-groups=('ps4-openorbis-portlibs' 'ps4-openorbis-sdl2')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
   cd SDL2_ttf-$pkgver

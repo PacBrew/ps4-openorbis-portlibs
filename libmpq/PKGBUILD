@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libmpq
 pkgver=1.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc=''libmpq' is a library which can be easily used in own applications to extract, create or manipulate MoPaQ mpq archives.'
 arch=('any')
 url='https://github.com/diasurgical/libmpq'
@@ -11,8 +11,11 @@ source=("$url/archive/0f10bd1600f406b13932bf5351ba713361262184.zip")
 sha256sums=('cbd66458f1538dce523690db2a038ee3bef7627efe6936c8da4f2b9b0eec1c52')
 options=(!strip libtool staticlibs)
 depends=("ps4-openorbis-bzip2" "ps4-openorbis-zlib")
-groups=('ps4-openorbis-portlibs')
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
   cd libmpq-0f10bd1600f406b13932bf5351ba713361262184

@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libfmt
 pkgver=8.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A modern formatting library.'
 arch=('any')
 url='https://fmt.dev'
@@ -12,7 +12,10 @@ options=(!strip libtool staticlibs)
 source=("https://github.com/fmtlib/fmt/releases/download/${pkgver}/fmt-${pkgver}.zip")
 sha256sums=('23778bad8edba12d76e4075da06db591f3b0e3c6c04928ced4a7282ca3400e5d')
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
-groups=('ps4-openorbis-portlibs')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
   cd fmt-$pkgver

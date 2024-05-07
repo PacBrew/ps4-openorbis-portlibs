@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libsamplerate
 pkgver=0.1.9
-pkgrel=1
+pkgrel=2
 pkgdesc='Secret Rabbit Code (aka libsamplerate) is a Sample Rate Converter for audio (for Nintendo Switch homebrew development)'
 arch=('any')
 url="http://www.mega-nerd.com/libsamplerate"
@@ -13,7 +13,10 @@ source=(
 )
 sha256sums=('0a7eb168e2f21353fb6d84da152e4512126f7dc48ccb0be80578c565413444c1')
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
-groups=('ps4-openorbis-portlibs')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
   cd libsamplerate-$pkgver

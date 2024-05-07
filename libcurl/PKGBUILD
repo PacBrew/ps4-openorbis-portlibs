@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libcurl
 pkgver=7.80.0
-pkgrel=2
+pkgrel=3
 pkgdesc='An URL retrieval utility and library'
 arch=('any')
 url='https://curl.haxx.se/'
@@ -12,7 +12,10 @@ sha256sums=('a132bd93188b938771135ac7c1f3ac1d3ce507c1fcbef8c471397639214ae2ab')
 options=(!strip libtool staticlibs)
 depends=('ps4-openorbis-zlib')
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
-groups=('ps4-openorbis-portlibs')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
   cd curl-$pkgver

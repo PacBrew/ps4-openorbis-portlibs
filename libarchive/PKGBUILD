@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libarchive
 pkgver=3.3.2
-pkgrel=2
+pkgrel=3
 pkgdesc='library that can create and read several streaming archive format'
 arch=('any')
 url="https://www.libarchive.org"
@@ -18,7 +18,10 @@ sha256sums=(
 )
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
 depends=('ps4-openorbis-bzip2' 'ps4-openorbis-zlib')
-groups=('ps4-openorbis-portlibs')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
   cd libarchive-$pkgver

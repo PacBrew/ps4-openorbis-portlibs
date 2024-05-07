@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libopus
 pkgver=1.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Reference implementation of the lossy audio codec'
 arch=('any')
 url='https://opus-codec.org/'
@@ -11,7 +11,10 @@ options=(!strip libtool staticlibs)
 source=("https://archive.mozilla.org/pub/opus/opus-$pkgver.tar.gz")
 sha256sums=('4f3d69aefdf2dbaf9825408e452a8a414ffc60494c70633560700398820dc550')
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
-groups=('ps4-openorbis-portlibs')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
   cd opus-$pkgver

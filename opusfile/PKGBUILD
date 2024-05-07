@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-opusfile
 pkgver=0.11
-pkgrel=1
+pkgrel=2
 pkgdesc='Library for opening, seeking, and decoding .opus files'
 arch=('any')
 url='https://opus-codec.org/'
@@ -12,7 +12,10 @@ source=("https://downloads.xiph.org/releases/opus/opusfile-$pkgver.tar.gz")
 sha256sums=('74ce9b6cf4da103133e7b5c95df810ceb7195471e1162ed57af415fabf5603bf')
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
 depends=('ps4-openorbis-libogg' 'ps4-openorbis-libopus')
-groups=('ps4-openorbis-portlibs')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
   cd opusfile-$pkgver

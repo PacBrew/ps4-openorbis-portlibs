@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libpng
 pkgver=1.6.37
-pkgrel=2
+pkgrel=3
 pkgdesc='PNG format graphic files library'
 arch=('any')
 url='http://www.libpng.org'
@@ -12,7 +12,10 @@ sha256sums=('505e70834d35383537b6491e7ae8641f1a4bed1876dbfe361201fc80868d88ca')
 options=(!strip libtool staticlibs)
 depends=('ps4-openorbis-zlib')
 makedepends=('ps4-openorbis-vars')
-groups=('ps4-openorbis-portlibs')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
   cd libpng-$pkgver

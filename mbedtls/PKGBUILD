@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-mbedtls
 pkgver=2.16.6
-pkgrel=2
+pkgrel=3
 pkgdesc='An open source, portable, easy to use, readable and flexible SSL library'
 arch=('any')
 url='https://tls.mbed.org'
@@ -11,7 +11,10 @@ options=(!strip libtool staticlibs)
 depends=(ps4-openorbis-zlib)
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
 source=("https://tls.mbed.org/download/mbedtls-${pkgver}-apache.tgz")
-groups=('ps4-openorbis-portlibs')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 sha256sums=('66455e23a6190a30142cdc1113f7418158839331a9d8e6b0778631d077281770')
 
 build() {

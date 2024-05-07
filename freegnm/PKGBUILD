@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-freegnm
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="freegnm is a library providing GPU accelerated graphics and compute in PlayStation 4's GNM, along with functionality to manage its resources"
 arch=('any')
 url='https://gitgud.io/gluesniffer/freegnm'
@@ -18,7 +18,10 @@ sha256sums=(
 )
 options=(!strip !debug libtool staticlibs)
 makedepends=('ps4-openorbis-vars')
-groups=('ps4-openorbis-portlibs')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 prepare() {
   cd freegnm-$commit

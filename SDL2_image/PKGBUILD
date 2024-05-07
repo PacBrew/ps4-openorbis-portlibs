@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-sdl2_image
 pkgver=2.0.5
-pkgrel=1
+pkgrel=2
 pkgdesc="SDL2 image loading library."
 arch=('any')
 url="https://libsdl.org/projects/SDL_image/"
@@ -17,7 +17,10 @@ depends=(
 )
 source=("${url}release/SDL2_image-${pkgver}.tar.gz")
 sha256sums=('bdd5f6e026682f7d7e1be0b6051b209da2f402a2dd8bd1c4bd9c25ad263108d0')
-groups=('ps4-openorbis-portlibs' 'ps4-openorbis-sdl2-libs')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
   cd SDL2_image-$pkgver

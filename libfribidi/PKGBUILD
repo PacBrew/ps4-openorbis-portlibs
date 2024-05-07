@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libfribidi
 pkgver=1.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Free Implementation of the Unicode Bidirectional Algorithm'
 arch=('any')
 url="https://github.com/fribidi/fribidi"
@@ -11,7 +11,10 @@ options=(!strip staticlibs)
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
 source=("https://github.com/fribidi/fribidi/releases/download/v$pkgver/fribidi-$pkgver.tar.bz2")
 sha256sums=('94bdfe553e004d8bd095b109e182682311dd511740d5083326d1582f1df237be')
-groups=('ps4-openorbis-portlibs')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 prepare() {
   cd fribidi-$pkgver

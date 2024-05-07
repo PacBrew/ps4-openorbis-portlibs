@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libjpeg-turbo
 pkgver=2.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc='libjpeg derivative with accelerated baseline JPEG compression and decompression'
 arch=('any')
 url='https://github.com/libjpeg-turbo'
@@ -11,7 +11,10 @@ options=(!strip libtool staticlibs)
 source=("https://github.com/libjpeg-turbo/libjpeg-turbo/archive/refs/tags/2.1.2.tar.gz")
 sha256sums=('e7fdc8a255c45bc8fbd9aa11c1a49c23092fcd7379296aeaeb14d3343a3d1bed')
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
-groups=('ps4-openorbis-portlibs')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
 

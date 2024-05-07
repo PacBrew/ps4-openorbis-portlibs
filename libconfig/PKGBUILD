@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libconfig
 pkgver=1.7.3
-pkgrel=2
+pkgrel=3
 pkgdesc='C/C++ Configuration File Library'
 arch=('any')
 url="https://www.hyperrealm.com/libconfig/libconfig.html"
@@ -11,7 +11,10 @@ options=(!strip libtool staticlibs)
 source=("https://github.com/hyperrealm/libconfig/releases/download/v$pkgver/libconfig-$pkgver.tar.gz")
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
 sha256sums=('545166d6cac037744381d1e9cc5a5405094e7bfad16a411699bcff40bbb31ee7')
-groups=('ps4-openorbis-portlibs')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
   cd libconfig-$pkgver

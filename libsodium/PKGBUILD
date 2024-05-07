@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libsodium
 pkgver=1.0.18
-pkgrel=1
+pkgrel=2
 pkgdesc='A modern formatting library.'
 arch=('any')
 url='https://libsodium.org'
@@ -12,8 +12,10 @@ options=(!strip libtool staticlibs)
 source=("https://download.libsodium.org/libsodium/releases/libsodium-$pkgver.tar.gz")
 sha256sums=('6f504490b342a4f8a4c4a02fc9b866cbef8622d5df4e5452b46be121e46636c1')
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
-groups=('ps4-openorbis-portlibs')
-
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
   source /opt/pacbrew/ps4/openorbis/ps4vars.sh

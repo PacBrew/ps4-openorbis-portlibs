@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-sdl2_mixer
 pkgver=2.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A sample multi-channel audio mixer library."
 arch=('any')
 url="https://libsdl.org/projects/SDL_mixer/"
@@ -19,7 +19,10 @@ depends=(
   'ps4-openorbis-mpg123'
   'ps4-openorbis-opusfile'
 )
-groups=('ps4-openorbis-portlibs' 'ps4-openorbis-sdl2')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
   cd SDL2_mixer-$pkgver

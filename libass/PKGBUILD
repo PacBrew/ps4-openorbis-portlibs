@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libass
 pkgver=0.14.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A portable subtitle renderer'
 arch=('any')
 url="https://github.com/libass/libass"
@@ -12,7 +12,10 @@ depends=('ps4-openorbis-freetype' 'ps4-openorbis-libfribidi')
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
 source=("https://github.com/libass/libass/releases/download/$pkgver/libass-$pkgver.tar.xz")
 sha256sums=('881f2382af48aead75b7a0e02e65d88c5ebd369fe46bc77d9270a94aa8fd38a2')
-groups=('ps4-openorbis-portlibs')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
   cd libass-$pkgver

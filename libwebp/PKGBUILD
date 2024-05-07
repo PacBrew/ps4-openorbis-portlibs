@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-libwebp
 pkgver=1.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc='WebP is a modern image format that provides superior lossless and lossy compression for images on the web.'
 arch=('any')
 url='https://developers.google.com/speed/webp/'
@@ -11,7 +11,10 @@ options=(!strip libtool staticlibs)
 makedepends=('ps4-openorbis-vars')
 source=("https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-$pkgver.tar.gz")
 sha256sums=('808b98d2f5b84e9b27fdef6c5372dac769c3bda4502febbfa5031bd3c4d7d018')
-groups=('ps4-openorbis-portlibs')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
   cd libwebp-$pkgver

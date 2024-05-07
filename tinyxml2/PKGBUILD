@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-tinyxml2
 pkgver=9.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A simple, small, efficient, C++ XML parser that can be easily integrated into other programs'
 arch=('any')
 url='http://leethomason.github.io/tinyxml2/'
@@ -11,7 +11,10 @@ options=(!strip libtool staticlibs)
 source=( "https://github.com/leethomason/tinyxml2/archive/${pkgver}.tar.gz" )
 sha256sums=('cc2f1417c308b1f6acc54f88eb70771a0bf65f76282ce5c40e54cfe52952702c')
 makedepends=('ps4-openorbis-pkg-config' 'ps4-openorbis-vars')
-groups=('ps4-openorbis-portlibs')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 build() {
   cd tinyxml2-$pkgver

@@ -2,7 +2,7 @@
 
 pkgname=ps4-openorbis-glm
 pkgver=0.9.9.8
-pkgrel=1
+pkgrel=2
 pkgdesc='OpenGL Mathematics (GLM) header only C++ library'
 arch=('any')
 url='https://github.com/g-truc/glm'
@@ -11,7 +11,10 @@ options=(!strip libtool staticlibs)
 source=("${url}/releases/download/${pkgver}/glm-${pkgver}.zip")
 sha256sums=('37e2a3d62ea3322e43593c34bae29f57e3e251ea89f4067506c94043769ade4c')
 makedepends=('ps4-openorbis-vars')
-groups=('ps4-openorbis-portlibs')
+groups=(
+  'pacbrew' 'pacbrew-ps4' 'pacbrew-ps4-portlibs'
+  'ps4-openorbis-portlibs' # for backward compatibility
+)
 
 package() {
   source /opt/pacbrew/ps4/openorbis/ps4vars.sh
